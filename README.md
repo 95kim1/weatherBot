@@ -1,2 +1,2 @@
 # weatherBot
-univ. project - to make a little bot - weather bot - scrapping kweather
+univ. project - to make a little bot - weather bot with telegram
