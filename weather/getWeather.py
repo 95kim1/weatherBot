@@ -132,6 +132,10 @@ def getWeatherBySoup(x_soup):
 
 # 날씨 가져오기
 def getDetailWeather(driver, siDo, siGunGu):
+    if siDo not in siDoFullName.keys():
+        return 2, "지역을 정확히 입력해주세요.\n사용법을 모르시면 \'도움\'을 입력해주세요."
+    siDo = siDoFullName[siDo]
+
     err = 0
 
     try:

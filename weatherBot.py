@@ -58,7 +58,7 @@ def handle(msg):
     if content_type == 'text':
         text = msg['text'].strip()
         # 도움말 출력
-        if text == "도움":
+        if text == "도움" or text == "도움말":
             message = help()
             bot.sendMessage(chat_id, message)
             return
@@ -91,11 +91,11 @@ def handle(msg):
         # 시/군/구 날씨 # text[1] == 시/군/구
         # 천안시: 동남구, 서북구 in kweather.co.kr
         if text[1] == "천안시":
-            err, info = getDetailWeather(driver, siDoFullName[text[0]], "천안시 동남구")
+            err, info = getDetailWeather(driver, text[0], "천안시 동남구")
             bot.sendMessage(chat_id, info)
             text[1] = "천안시 서북구"
 
-        err, info = getDetailWeather(driver, siDoFullName[text[0]], text[1])
+        err, info = getDetailWeather(driver, text[0], text[1])
         bot.sendMessage(chat_id, info)
         print(f'error: {err}')
     print()
@@ -103,7 +103,7 @@ def handle(msg):
 # main
 
 driver = getDriverByUrl(URL_DETAIL)
-TOKEN = "1700328915:AAFmvevPTQy5ZDR1BZWvWUZzdGpYcug_6bQ"
+TOKEN = "get TOKEN from telegram's BotFather"
 bot = telepot.Bot(TOKEN)
 MessageLoop(bot=bot, handle=handle).run_forever()
 
