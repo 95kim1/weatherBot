@@ -2,7 +2,7 @@ from weather.getWeather import *
 from telepot.loop import MessageLoop
 import telepot
 
-def parce(text):
+def parse(text):
     text = text.strip().split(" ")
     print(text)
     if text[0] == text[-1]:
@@ -69,7 +69,7 @@ def handle(msg):
             bot.sendMessage(chat_id, info)
             return
 
-        text = parce(msg['text'])
+        text = parse(msg['text'])
         # 시/도 날씨
         if text[1] == "" and text[0] in areaId.keys():
             print('시/도 날씨')
@@ -103,7 +103,7 @@ def handle(msg):
 # main
 
 driver = getDriverByUrl(URL_DETAIL)
-TOKEN = "get TOKEN from telegram's BotFather"
+TOKEN = "change this: get TOKEN from telegram's BotFather"
 bot = telepot.Bot(TOKEN)
 MessageLoop(bot=bot, handle=handle).run_forever()
 
