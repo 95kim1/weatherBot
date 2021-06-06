@@ -103,7 +103,7 @@ def handle(msg):
 # main
 
 driver = getDriverByUrl(URL_DETAIL)
-TOKEN = "1700328915:AAFmvevPTQy5ZDR1BZWvWUZzdGpYcug_6bQ"
+TOKEN = "get TOKEN from telegram's BotFather"
 bot = telepot.Bot(TOKEN)
 MessageLoop(bot=bot, handle=handle).run_forever()
 
