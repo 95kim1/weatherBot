@@ -1,6 +1,3 @@
-import datetime
-
-import numpy as np
 from bs4 import BeautifulSoup
 from selenium import webdriver
 from selenium.webdriver.support.select import Select
@@ -32,11 +29,6 @@ URL_ROUGH = "https://www.kweather.co.kr/forecast/forecast_lifestyle.html"
 EXCEL_PATH = './resource/sido.xlsx'
 CHROME_DRIVER_PATH = './resource/chromedriver.exe'
 global driver
-
-# 현재 시간 문자열로 가져오기 ex: "2021-06-05"
-def getNowDate():
-    return str(datetime.datetime.now())[:10]
-#
 
 # 크롬 페이지 띄우기
 # with selenium
@@ -84,20 +76,20 @@ def getCurPageSourse(x_driver):
 #     return text.split(" ")
 #
 
-# 해당 페이지에서 오늘/내일/모레 예보 선택
-#//*[@id="day1"]/table/tbody/tr/td[1]  오늘
-#//*[@id="day0"]/table/tbody/tr/td[2]  내일
-#//*[@id="day0"]/table/tbody/tr/td[3]  모레
-def clickDate(x_driver, x_date="오늘"):
-    path = ""
-    if x_date == "오늘":
-        path = '//*[@id="day1"]/table/tbody/tr/td[1]'
-    elif x_date == "내일":
-        path = '//*[@id="day0"]/table/tbody/tr/td[2]'
-    else:
-        path = '//*[@id="day0"]/table/tbody/tr/td[3]'
-    x_driver.find_element_by_xpath(path).click()
-#
+# # 해당 페이지에서 오늘/내일/모레 예보 선택
+# #//*[@id="day1"]/table/tbody/tr/td[1]  오늘
+# #//*[@id="day0"]/table/tbody/tr/td[2]  내일
+# #//*[@id="day0"]/table/tbody/tr/td[3]  모레
+# def clickDate(x_driver, x_date="오늘"):
+#     path = ""
+#     if x_date == "오늘":
+#         path = '//*[@id="day1"]/table/tbody/tr/td[1]'
+#     elif x_date == "내일":
+#         path = '//*[@id="day0"]/table/tbody/tr/td[2]'
+#     else:
+#         path = '//*[@id="day0"]/table/tbody/tr/td[3]'
+#     x_driver.find_element_by_xpath(path).click()
+# #
 
 # 크롬 페이지 종료
 # with selenium
