@@ -23,7 +23,7 @@ siDoFullName = {
     "전남":"전라남도", "전라남도":"전라남도",
     "경북":"경상북도", "경상북도":"경상북도",
     "경남":"경상남도", "경상남도":"경상남도",
-    "제주":"제주도", "제주도":"제주도",
+    "제주":"제주특별자치도", "제주도":"제주특별자치도", "제주특별자치도":"제주특별자치도",
     "세종":"세종특별자치시", "세종시":"세종특별자치시", "세종특별자치시":"세종특별자치시"
 }
 
@@ -144,11 +144,20 @@ def getDetailWeather(driver, siDo, siGunGu):
         err = 1
         return err, "지역을 정확히 입력해주세요.\n사용법을 모르시면 \'도움\'을 입력해주세요."
 
-    try:
-        selectSi_gun_gu(driver, siGunGu)
-    except:
-        err = 2
-        return err, "지역을 정확히 입력해주세요.\n사용법을 모르시면 \'도움\'을 입력해주세요."
+    temp = ["", "시", "군", "구"]
+    for i in range(4):
+        temp_siGunGu = siGunGu + temp[i]
+
+        try:
+            selectSi_gun_gu(driver, temp_siGunGu)
+            err = 0
+        except:
+            err = 2
+            if i == 3:
+                return err, "지역을 정확히 입력해주세요.\n사용법을 모르시면 \'도움\'을 입력해주세요."
+
+        if err == 0:
+            break
 
     clickSelectOption(driver)
 
@@ -169,11 +178,12 @@ def getDetailWeatherAll(driver, siGunGu):
         return 2, "지역을 정확히 입력해주세요.\n사용법을 모르시면 \'도움\'을 입력해주세요."
 
     arr = df[df['시군구'] == siGunGu].values[0][1:]
-
+    print(arr)
     info = ""
     for si_do in arr:
         if type(si_do) is float:
             break
+        print(si_do)
         err, temp = getDetailWeather(driver, siDoFullName[si_do], siGunGu)
         info += temp + '\n\n'
 
@@ -216,7 +226,7 @@ areaId = {
     "경상도":[6,10], "경북":[6], "경남":[10],
     "울릉":[7], "울릉도":[7],
     "전라도":[8,9], "전남":[8], "전북":[9],
-    "제주도":[11]
+    "제주도":[11], "제주":[11]
 }
 
 def getRoughWeather(area):
@@ -229,8 +239,6 @@ def getRoughWeather(area):
         info += f'{rough_area[id_]}: {lis[id_].text}\n'
 
     return info
-
-siGunGu = {}
 
 def getSiDo(siGunGu):
     siGunGu = pd.read_excel('./sido.xlsx')
